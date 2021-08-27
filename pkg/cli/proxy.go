@@ -2,10 +2,10 @@ package cli
 
 import (
 	"context"
-	"fmt"
 	"io"
 	"os/exec"
 
+	"github.com/suzuki-shunsuke/go-error-with-exit-code/ecerror"
 	"github.com/suzuki-shunsuke/go-timeout/timeout"
 )
 
@@ -22,7 +22,7 @@ func (runner *Runner) Run(ctx context.Context, args ...string) error {
 	cmd.Stderr = runner.Stderr
 	r := timeout.NewRunner(0)
 	if err := r.Run(ctx, cmd); err != nil {
-		return fmt.Errorf("execute the command: %w", err)
+		return ecerror.Wrap(err, cmd.ProcessState.ExitCode())
 	}
 	return nil
 }
