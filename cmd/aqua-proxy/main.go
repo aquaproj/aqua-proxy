@@ -2,16 +2,16 @@ package main
 
 import (
 	"context"
-	"log"
 	"os"
 	"os/signal"
 
 	"github.com/suzuki-shunsuke/aqua-proxy/pkg/cli"
+	"github.com/suzuki-shunsuke/go-error-with-exit-code/ecerror"
 )
 
 func main() {
 	if err := core(); err != nil {
-		log.Fatal(err)
+		os.Exit(ecerror.GetExitCode(err))
 	}
 }
 
