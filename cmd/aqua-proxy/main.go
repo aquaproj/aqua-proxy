@@ -4,6 +4,7 @@ import (
 	"context"
 	"os"
 	"os/signal"
+	"syscall"
 
 	"github.com/suzuki-shunsuke/aqua-proxy/pkg/cli"
 	"github.com/suzuki-shunsuke/go-error-with-exit-code/ecerror"
@@ -21,7 +22,7 @@ func core() error {
 		Stdout: os.Stdout,
 		Stderr: os.Stderr,
 	}
-	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 	return runner.Run(ctx, os.Args...) //nolint:wrapcheck
 }
