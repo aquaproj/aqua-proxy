@@ -4,6 +4,7 @@ import (
 	"context"
 	"io"
 	"os/exec"
+	"path/filepath"
 
 	"github.com/suzuki-shunsuke/go-error-with-exit-code/ecerror"
 	"github.com/suzuki-shunsuke/go-timeout/timeout"
@@ -16,7 +17,7 @@ type Runner struct {
 }
 
 func (runner *Runner) Run(ctx context.Context, args ...string) error {
-	cmd := exec.Command("aqua", append([]string{"exec", "--"}, args...)...) //nolint:gosec
+	cmd := exec.Command("aqua", append([]string{"exec", "--", filepath.Base(args[0])}, args[1:]...)...) //nolint:gosec
 	cmd.Stdin = runner.Stdin
 	cmd.Stdout = runner.Stdout
 	cmd.Stderr = runner.Stderr
