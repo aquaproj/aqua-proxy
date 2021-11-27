@@ -1,5 +1,16 @@
 {
   "extends": [
-    "github>suzuki-shunsuke/renovate-config:golang"
+    "config:base"
+  ],
+  "automerge": true,
+  "packageRules": [
+    {
+      "postUpdateOptions": ["gomodTidy"],
+      "matchManagers": ["gomod"]
+    },
+    {
+      "automerge": false,
+      "matchUpdateTypes": ["major"]
+    }
   ]
 }

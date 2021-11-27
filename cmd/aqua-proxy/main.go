@@ -6,7 +6,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/suzuki-shunsuke/aqua-proxy/pkg/cli"
+	"github.com/aquaproj/aqua-proxy/pkg/cli"
 	"github.com/suzuki-shunsuke/go-error-with-exit-code/ecerror"
 )
 
