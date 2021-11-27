@@ -1,4 +1,4 @@
-module github.com/suzuki-shunsuke/aqua-proxy
+module github.com/aquaproj/aqua-proxy
 
 go 1.16
 
