@@ -53,4 +53,4 @@ tasks:
 - name: build
   description: go build
   usage: go build
-  script: go build -o dist/aqua ./cmd/aqua
+  script: go build -o dist/aqua-proxy ./cmd/aqua-proxy
