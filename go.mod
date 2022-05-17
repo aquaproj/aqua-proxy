@@ -5,5 +5,5 @@ go 1.16
 require (
 	github.com/suzuki-shunsuke/go-error-with-exit-code v1.0.0
 	github.com/suzuki-shunsuke/go-timeout v1.0.0
-	golang.org/x/sys v0.0.0-20220513210249-45d2b4557a2a
+	golang.org/x/sys v0.0.0-20220517195934-5e4e11fc645e
 )
