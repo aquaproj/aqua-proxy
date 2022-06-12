@@ -11,7 +11,6 @@ import (
 
 	"github.com/suzuki-shunsuke/go-error-with-exit-code/ecerror"
 	"github.com/suzuki-shunsuke/go-timeout/timeout"
-	"golang.org/x/sys/unix"
 )
 
 type Runner struct {
@@ -35,22 +34,6 @@ func (runner *Runner) Run(ctx context.Context, args ...string) error {
 	r := timeout.NewRunner(0)
 	if err := r.Run(ctx, cmd); err != nil {
 		return ecerror.Wrap(err, cmd.ProcessState.ExitCode())
-	}
-	return nil
-}
-
-func (runner *Runner) RunXSysExec(args ...string) error {
-	cmdName := filepath.Base(args[0])
-	if cmdName == "aqua" {
-		return errAquaCantBeExecuted
-	}
-
-	aquaPath, err := absoluteAquaPath()
-	if err != nil {
-		return fmt.Errorf("get aqua's absolute path: %w", err)
-	}
-	if err := unix.Exec(aquaPath, append([]string{"aqua", "exec", "--", cmdName}, args[1:]...), os.Environ()); err != nil {
-		return fmt.Errorf("execute aqua: %w", err)
 	}
 	return nil
 }
