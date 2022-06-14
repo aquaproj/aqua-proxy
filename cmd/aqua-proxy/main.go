@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"runtime"
 	"syscall"
 
 	"github.com/aquaproj/aqua-proxy/pkg/cli"
@@ -12,7 +13,7 @@ import (
 )
 
 func main() {
-	enabledXSysExec := os.Getenv("AQUA_EXPERIMENTAL_X_SYS_EXEC") == "true"
+	enabledXSysExec := os.Getenv("AQUA_EXPERIMENTAL_X_SYS_EXEC") == "true" && runtime.GOOS != "windows"
 	if err := core(enabledXSysExec); err != nil {
 		if enabledXSysExec {
 			fmt.Fprintln(os.Stderr, "[ERROR] "+err.Error())
