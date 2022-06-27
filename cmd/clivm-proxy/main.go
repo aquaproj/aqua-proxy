@@ -8,12 +8,12 @@ import (
 	"runtime"
 	"syscall"
 
-	"github.com/aquaproj/aqua-proxy/pkg/cli"
+	"github.com/clivm/clivm-proxy/pkg/cli"
 	"github.com/suzuki-shunsuke/go-error-with-exit-code/ecerror"
 )
 
 func main() {
-	enabledXSysExec := os.Getenv("AQUA_EXPERIMENTAL_X_SYS_EXEC") == "true" && runtime.GOOS != "windows"
+	enabledXSysExec := os.Getenv("CLIVM_EXPERIMENTAL_X_SYS_EXEC") == "true" && runtime.GOOS != "windows"
 	if err := core(enabledXSysExec); err != nil {
 		if enabledXSysExec {
 			fmt.Fprintln(os.Stderr, "[ERROR] "+err.Error())

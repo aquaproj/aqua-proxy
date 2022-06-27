@@ -19,15 +19,15 @@ type Runner struct {
 	Stderr io.Writer
 }
 
-var errAquaCantBeExecuted = errors.New(`the command "aqua" can't be executed via aqua-proxy to prevent the infinite loop`)
+var errAquaCantBeExecuted = errors.New(`the command "clivm" can't be executed via clivm-proxy to prevent the infinite loop`)
 
 func (runner *Runner) Run(ctx context.Context, args ...string) error {
 	cmdName := filepath.Base(args[0])
-	if cmdName == "aqua" {
+	if cmdName == "clivm" {
 		fmt.Fprintln(os.Stderr, "[ERROR] "+errAquaCantBeExecuted.Error())
 		return errAquaCantBeExecuted
 	}
-	cmd := exec.Command("aqua", append([]string{"exec", "--", cmdName}, args[1:]...)...) //nolint:gosec
+	cmd := exec.Command("clivm", append([]string{"exec", "--", cmdName}, args[1:]...)...) //nolint:gosec
 	cmd.Stdin = runner.Stdin
 	cmd.Stdout = runner.Stdout
 	cmd.Stderr = runner.Stderr
@@ -39,16 +39,16 @@ func (runner *Runner) Run(ctx context.Context, args ...string) error {
 }
 
 func absoluteAquaPath() (string, error) {
-	aquaPath, err := exec.LookPath("aqua")
+	clivmPath, err := exec.LookPath("clivm")
 	if err != nil {
-		return "", fmt.Errorf("aqua isn't found: %w", err)
+		return "", fmt.Errorf("clivm isn't found: %w", err)
 	}
-	if filepath.IsAbs(aquaPath) {
-		return aquaPath, nil
+	if filepath.IsAbs(clivmPath) {
+		return clivmPath, nil
 	}
-	a, err := filepath.Abs(aquaPath)
+	a, err := filepath.Abs(clivmPath)
 	if err != nil {
-		return "", fmt.Errorf(`convert relative path "%s" to absolute path: %w`, aquaPath, err)
+		return "", fmt.Errorf(`convert relative path "%s" to absolute path: %w`, clivmPath, err)
 	}
 	return a, nil
 }

@@ -13,16 +13,16 @@ import (
 
 func (runner *Runner) RunXSysExec(args ...string) error {
 	cmdName := filepath.Base(args[0])
-	if cmdName == "aqua" {
+	if cmdName == "clivm" {
 		return errAquaCantBeExecuted
 	}
 
-	aquaPath, err := absoluteAquaPath()
+	clivmPath, err := absoluteAquaPath()
 	if err != nil {
-		return fmt.Errorf("get aqua's absolute path: %w", err)
+		return fmt.Errorf("get clivm's absolute path: %w", err)
 	}
-	if err := unix.Exec(aquaPath, append([]string{"aqua", "exec", "--", cmdName}, args[1:]...), os.Environ()); err != nil {
-		return fmt.Errorf("execute aqua: %w", err)
+	if err := unix.Exec(clivmPath, append([]string{"clivm", "exec", "--", cmdName}, args[1:]...), os.Environ()); err != nil {
+		return fmt.Errorf("execute clivm: %w", err)
 	}
 	return nil
 }

@@ -49,8 +49,8 @@ tasks:
 - name: install
   description: go install
   usage: go install
-  script: go install ./cmd/aqua
+  script: go install ./cmd/clivm
 - name: build
   description: go build
   usage: go build
-  script: go build -o dist/aqua-proxy ./cmd/aqua-proxy
+  script: go build -o dist/clivm-proxy ./cmd/clivm-proxy
