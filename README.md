@@ -8,7 +8,7 @@ The internal CLI tool of [aqua](https://github.com/clivm/aqua).
 We develop aqua-proxy for aqua, and we don't assume that aqua-proxy is used in the other purpose.
 
 Basically the user of aqua don't have to know the detail of aqua-proxy.
-aqua-proxy is installed to `$AQUA_ROOT_DIR/bin/aqua-proxy` automatically when `aqua install` and `aqua exec` is run, so you don't have to install aqua-proxy explicitly.
+aqua-proxy is installed to `$CLIVM_ROOT_DIR/bin/aqua-proxy` automatically when `aqua install` and `aqua exec` is run, so you don't have to install aqua-proxy explicitly.
 
 aqua-proxy has only the minimum feature and responsibility.
 aqua-proxy is stable and isn't changed basically.
