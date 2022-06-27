@@ -8,7 +8,7 @@ import (
 	"runtime"
 	"syscall"
 
-	"github.com/clivm/aqua-proxy/pkg/cli"
+	"github.com/clivm/clivm-proxy/pkg/cli"
 	"github.com/suzuki-shunsuke/go-error-with-exit-code/ecerror"
 )
 

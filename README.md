@@ -1,19 +1,19 @@
-# aqua-proxy
+# clivm-proxy
 
-[![Build Status](https://github.com/clivm/aqua-proxy/workflows/test/badge.svg)](https://github.com/clivm/aqua-proxy/actions)
-[![GitHub last commit](https://img.shields.io/github/last-commit/clivm/aqua-proxy.svg)](https://github.com/clivm/aqua-proxy)
-[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://raw.githubusercontent.com/clivm/aqua-proxy/main/LICENSE)
+[![Build Status](https://github.com/clivm/clivm-proxy/workflows/test/badge.svg)](https://github.com/clivm/clivm-proxy/actions)
+[![GitHub last commit](https://img.shields.io/github/last-commit/clivm/clivm-proxy.svg)](https://github.com/clivm/clivm-proxy)
+[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://raw.githubusercontent.com/clivm/clivm-proxy/main/LICENSE)
 
-The internal CLI tool of [aqua](https://github.com/clivm/aqua).
-We develop aqua-proxy for aqua, and we don't assume that aqua-proxy is used in the other purpose.
+The internal CLI tool of [clivm](https://github.com/clivm/clivm).
+We develop clivm-proxy for clivm, and we don't assume that clivm-proxy is used in the other purpose.
 
-Basically the user of aqua don't have to know the detail of aqua-proxy.
-aqua-proxy is installed to `$CLIVM_ROOT_DIR/bin/aqua-proxy` automatically when `aqua install` and `aqua exec` is run, so you don't have to install aqua-proxy explicitly.
+Basically the user of clivm don't have to know the detail of clivm-proxy.
+clivm-proxy is installed to `$CLIVM_ROOT_DIR/bin/clivm-proxy` automatically when `clivm install` and `clivm exec` is run, so you don't have to install clivm-proxy explicitly.
 
-aqua-proxy has only the minimum feature and responsibility.
-aqua-proxy is stable and isn't changed basically.
+clivm-proxy has only the minimum feature and responsibility.
+clivm-proxy is stable and isn't changed basically.
 
-aqua-proxy is developed to decide the version of aqua and package managed with aqua dynamically according to the aqua's configuration file when the package is executed.
+clivm-proxy is developed to decide the version of clivm and package managed with clivm dynamically according to the clivm's configuration file when the package is executed.
 
 Please see [How does Lazy Install work?](https://clivm.github.io/docs/reference/lazy-install) too.
 

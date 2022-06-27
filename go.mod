@@ -1,4 +1,4 @@
-module github.com/clivm/aqua-proxy
+module github.com/clivm/clivm-proxy
 
 go 1.16
 
