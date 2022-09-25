@@ -24,8 +24,6 @@ jobs:
     - name: remove changes
       # Sometimes it is failed to release by goreleaser due to changes of go.sum
       run: git checkout -- .
-    - name: fetch tags to release
-      run: git fetch --tags
     - name: Unshallow
       run: git fetch --prune --unshallow
     - name: Run GoReleaser
