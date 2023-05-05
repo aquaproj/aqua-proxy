@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-	enabledXSysExec := os.Getenv("AQUA_EXPERIMENTAL_X_SYS_EXEC") == "true" && runtime.GOOS != "windows"
+	enabledXSysExec := getEnabledXSysExec(runtime.GOOS)
 	if err := core(enabledXSysExec); err != nil {
 		if enabledXSysExec {
 			fmt.Fprintln(os.Stderr, "[ERROR] "+err.Error())
@@ -21,6 +21,19 @@ func main() {
 		}
 		os.Exit(ecerror.GetExitCode(err))
 	}
+}
+
+func getEnabledXSysExec(goos string) bool {
+	if goos == "windows" {
+		return false
+	}
+	if os.Getenv("AQUA_EXPERIMENTAL_X_SYS_EXEC") == "false" {
+		return false
+	}
+	if os.Getenv("AQUA_X_SYS_EXEC") == "false" {
+		return false
+	}
+	return true
 }
 
 func core(enabledXSysExec bool) error {
