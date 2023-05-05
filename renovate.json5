@@ -1,29 +1,10 @@
 {
   "extends": [
     "config:base",
-    "helpers:pinGitHubActionDigests"
+    "github>aquaproj/aqua-renovate-config#1.5.2",
+    "github>aquaproj/aqua-renovate-config:file#1.5.2(aqua/.*\\.ya?ml)",
+    "github>suzuki-shunsuke/renovate-config#2.0.0",
+    "github>suzuki-shunsuke/renovate-config:nolimit#2.0.0",
+    "github>suzuki-shunsuke/renovate-config:action-go-version#2.0.0",
   ],
-  "automerge": true,
-  "packageRules": [
-    {
-      "postUpdateOptions": ["gomodTidy"],
-      "matchManagers": ["gomod"]
-    },
-    {
-      "automerge": false,
-      "matchUpdateTypes": ["major"]
-    },
-    {
-      // slsa-framework/slsa-github-generator doesn't support pinning version
-      // > Invalid ref: 68bad40844440577b33778c9f29077a3388838e9. Expected ref of the form refs/tags/vX.Y.Z
-      // https://github.com/slsa-framework/slsa-github-generator/issues/722
-      matchDepTypes: [
-        "action",
-      ],
-      matchPackageNames: [
-        "slsa-framework/slsa-github-generator",
-      ],
-      pinDigests: false,
-    },
-  ]
 }
