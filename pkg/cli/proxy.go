@@ -8,9 +8,9 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"time"
 
 	"github.com/suzuki-shunsuke/go-error-with-exit-code/ecerror"
-	"github.com/suzuki-shunsuke/go-timeout/timeout"
 )
 
 type Runner struct {
@@ -27,15 +27,26 @@ func (runner *Runner) Run(ctx context.Context, args ...string) error {
 		fmt.Fprintln(os.Stderr, "[ERROR] "+errAquaCantBeExecuted.Error())
 		return errAquaCantBeExecuted
 	}
-	cmd := exec.Command("aqua", append([]string{"exec", "--", cmdName}, args[1:]...)...) //nolint:gosec
+	cmd := exec.CommandContext(ctx, "aqua", append([]string{"exec", "--", cmdName}, args[1:]...)...) //nolint:gosec
 	cmd.Stdin = runner.Stdin
 	cmd.Stdout = runner.Stdout
 	cmd.Stderr = runner.Stderr
-	r := timeout.NewRunner(0)
-	if err := r.Run(ctx, cmd); err != nil {
+
+	setCancel(cmd)
+
+	if err := cmd.Run(); err != nil {
 		return ecerror.Wrap(err, cmd.ProcessState.ExitCode())
 	}
 	return nil
+}
+
+const waitDelay = 1000 * time.Hour
+
+func setCancel(cmd *exec.Cmd) {
+	cmd.Cancel = func() error {
+		return cmd.Process.Signal(os.Interrupt) //nolint:wrapcheck
+	}
+	cmd.WaitDelay = waitDelay
 }
 
 func absoluteAquaPath() (string, error) {
