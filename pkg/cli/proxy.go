@@ -8,6 +8,8 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
+	"strings"
 	"time"
 
 	"github.com/suzuki-shunsuke/go-error-with-exit-code/ecerror"
@@ -23,6 +25,13 @@ var errAquaCantBeExecuted = errors.New(`the command "aqua" can't be executed via
 
 func (runner *Runner) Run(ctx context.Context, args ...string) error {
 	cmdName := filepath.Base(args[0])
+	if runtime.GOOS == "windows" {
+		if e := strings.TrimSuffix(cmdName, ".exe"); e != cmdName {
+			cmdName = e
+		} else if e := strings.TrimSuffix(cmdName, ".bat"); e != cmdName {
+			cmdName = e
+		}
+	}
 	if cmdName == "aqua" {
 		fmt.Fprintln(os.Stderr, "[ERROR] "+errAquaCantBeExecuted.Error())
 		return errAquaCantBeExecuted
