@@ -2,36 +2,44 @@
 version: 2
 project_name: aqua-proxy
 archives:
-- name_template: "{{.ProjectName}}_{{.Os}}_{{.Arch}}"
+  - name_template: "{{.ProjectName}}_{{.Os}}_{{.Arch}}"
+    files:
+      - LICENSE
+      - README.md
+      - third_party_licenses/**/*
 builds:
-- binary: aqua-proxy
-  main: cmd/aqua-proxy/main.go
-  env:
-  - CGO_ENABLED=0
-  goos:
-  - windows
-  - darwin
-  - linux
-  goarch:
-  - amd64
-  - arm64
+  - binary: aqua-proxy
+    main: cmd/aqua-proxy/main.go
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - windows
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
 release:
-  prerelease: true
+  prerelease: "true"
   header: |
     [Pull Requests](https://github.com/aquaproj/aqua-proxy/pulls?q=is%3Apr+milestone%3A{{.Tag}}) | [Issues](https://github.com/aquaproj/aqua-proxy/issues?q=is%3Aissue+milestone%3A{{.Tag}}) | https://github.com/aquaproj/aqua-proxy/compare/{{.PreviousTag}}...{{.Tag}}
 signs:
-- cmd: cosign
-  artifacts: checksum
-  signature: ${artifact}.sig
-  certificate: ${artifact}.pem
-  output: true
-  args:
-  - sign-blob
-  - "-y"
-  - --output-signature
-  - ${signature}
-  - --output-certificate
-  - ${certificate}
-  - --oidc-provider
-  - github
-  - ${artifact}
+  - cmd: cosign
+    artifacts: checksum
+    signature: ${artifact}.sig
+    certificate: ${artifact}.pem
+    output: true
+    args:
+      - sign-blob
+      - "-y"
+      - --output-signature
+      - ${signature}
+      - --output-certificate
+      - ${certificate}
+      - --oidc-provider
+      - github
+      - ${artifact}
+
+sboms:
+  - id: default
+    disable: false
