@@ -26,9 +26,9 @@ var errAquaCantBeExecuted = errors.New(`the command "aqua" can't be executed via
 func (runner *Runner) Run(ctx context.Context, args ...string) error {
 	cmdName := filepath.Base(args[0])
 	if runtime.GOOS == "windows" {
-		if e := strings.TrimSuffix(cmdName, ".exe"); e != cmdName {
+		if e, ok := strings.CutSuffix(cmdName, ".exe"); ok {
 			cmdName = e
-		} else if e := strings.TrimSuffix(cmdName, ".bat"); e != cmdName {
+		} else if e, ok := strings.CutSuffix(cmdName, ".bat"); ok {
 			cmdName = e
 		}
 	}
