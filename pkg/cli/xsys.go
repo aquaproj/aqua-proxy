@@ -12,7 +12,7 @@ import (
 
 func (runner *Runner) RunXSysExec(args ...string) error {
 	cmdName := filepath.Base(args[0])
-	if cmdName == "aqua" {
+	if cmdName == cmdAqua {
 		return errAquaCantBeExecuted
 	}
 
@@ -20,7 +20,7 @@ func (runner *Runner) RunXSysExec(args ...string) error {
 	if err != nil {
 		return fmt.Errorf("get aqua's absolute path: %w", err)
 	}
-	if err := unix.Exec(aquaPath, append([]string{"aqua", "exec", "--", cmdName}, args[1:]...), os.Environ()); err != nil {
+	if err := unix.Exec(aquaPath, append([]string{cmdAqua, "exec", "--", cmdName}, args[1:]...), os.Environ()); err != nil {
 		return fmt.Errorf("execute aqua: %w", err)
 	}
 	return nil
