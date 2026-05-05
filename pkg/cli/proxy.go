@@ -21,6 +21,8 @@ type Runner struct {
 	Stderr io.Writer
 }
 
+const cmdAqua = "aqua"
+
 var errAquaCantBeExecuted = errors.New(`the command "aqua" can't be executed via aqua-proxy to prevent the infinite loop`)
 
 func (runner *Runner) Run(ctx context.Context, args ...string) error {
@@ -32,11 +34,11 @@ func (runner *Runner) Run(ctx context.Context, args ...string) error {
 			cmdName = e
 		}
 	}
-	if cmdName == "aqua" {
+	if cmdName == cmdAqua {
 		fmt.Fprintln(os.Stderr, "[ERROR] "+errAquaCantBeExecuted.Error())
 		return errAquaCantBeExecuted
 	}
-	cmd := exec.CommandContext(ctx, "aqua", append([]string{"exec", "--", cmdName}, args[1:]...)...) //nolint:gosec
+	cmd := exec.CommandContext(ctx, cmdAqua, append([]string{"exec", "--", cmdName}, args[1:]...)...) //nolint:gosec
 	cmd.Stdin = runner.Stdin
 	cmd.Stdout = runner.Stdout
 	cmd.Stderr = runner.Stderr
@@ -59,7 +61,7 @@ func setCancel(cmd *exec.Cmd) {
 }
 
 func absoluteAquaPath() (string, error) {
-	aquaPath, err := exec.LookPath("aqua")
+	aquaPath, err := exec.LookPath(cmdAqua)
 	if err != nil {
 		return "", fmt.Errorf("aqua isn't found: %w", err)
 	}
