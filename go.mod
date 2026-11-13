@@ -1,6 +1,6 @@
 module github.com/aquaproj/aqua-proxy
 
-go 1.27.3
+go 1.27.4
 
 require (
 	github.com/suzuki-shunsuke/go-error-with-exit-code v1.0.0
